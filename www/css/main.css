@@ -3,7 +3,48 @@
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
+    span.read-more { cursor: pointer; color: red; }
+    span.more { display: none;  }
+h3.top {
+margin-top: 2px !important;
+margin-bottom: 3px !important;
+}
+.panel-body {
+    padding: 15px 0;
+}
+.recent-activity-wrapper .list-activities {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+.recent-activity-wrapper .list-activities > li {
+    border-top: 2.3px solid #755716;
+    display: block;
+    position: relative;
+}
+.recent-activity-wrapper .user-image {
+    height: 45px;
+    margin-right: 15px;
+    overflow: hidden;
+    width: 45px;
+}
+.pull-left {
+    float: left;
+}
+.recent-activity-wrapper .user-image {
+    height: 100px;
+    margin-right: 15px;
+    overflow: hidden;
+    width: 100px;
+}
+hr { display: block;
+    border: 0; border-bottom: 2.5px solid #323949;
+	    margin-bottom: 0px;
+    margin-top: 0px;
+	}
+.left {
+float:left;
+}
 a.nav-expander {
   display: block;
   font-size: 15px;
@@ -48,7 +89,7 @@ nav.menu-list {
   right: -20em;
   font-size: 15px;
   top: 0;
-  width: 20em;
+  width: 17em;
   z-index: 2000;
   
   transition: right 0.3s ease-in-out 0s;

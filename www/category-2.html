@@ -9,27 +9,7 @@
 	<script src="js/jquery.min.js"></script>
 	<link href="css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" />
 	<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-	<link href="photoswipe.css" type="text/css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/main.css">
-	<script type="text/javascript" src="lib/klass.min.js"></script>
-	<script type="text/javascript" src="code.photoswipe-3.0.5.min.js"></script>
-
-	
-	<script type="text/javascript">
-		(function(window, PhotoSwipe){
-		
-			document.addEventListener('DOMContentLoaded', function(){
-			
-				var
-					options = {},
-					instance = PhotoSwipe.attach( window.document.querySelectorAll('#Gallery a'), options );
-			
-			}, false);
-			
-			
-		}(window, window.Code.PhotoSwipe));
-	</script>
-	
 </head>
 <body class="background">
 <nav class="menu-list">
@@ -44,41 +24,70 @@
           </li>
         </ul>
       </nav>
-<nav class="navbar navbar-default Header">
+<nav class="navbar navbar-default Header" role="navigation" id="slide-nav">
 		<div class="Header">
+		<div class="navbar navbar-fixed-top">      
+        <div class="navbar-header pull-right">
+
+        </div>
+    </div>
 		</div>
 		<div id="logo">
-<a href="index.html"><img src="images/logo.png" class="logos" alt="Home" /></a>
+<a href="index.html"><img src="images/logo.png" class="logos" alt="Code Computerlove" /></a>
 </div>
+
+  
 </nav>
-
-<div id="MainContent">
-
-	<div class="page-content">
-		<h3>Raghbah</h3>
+<div class="container">
+<div class="row text-center">
+<center>
+<h3 class="title-a" id="title"></h3>
+</center>
+<div class="col-sm-14 recent-activity-wrapper">
+	<div class="panel panel-default panel-pmj panel-recent-activity">
+		<div class="panel-body clearfix">
+		<ul class="list-activities">
+<div id="summary">
+</div>
+</ul>
 	</div>
-		<script type="text/javascript">
-	$.getJSON( "http://news.dicoba.net/api/gallery/images", function( data ) {
-	$(data).each(function() {
-		var output = "<li><a rel='external' href='http://news.dicoba.net/media/" + this.media 
-		+ "'><img width='100' class='img-rounded' height='100' src='http://news.dicoba.net/media/" + this.media + "' alt='" + this.title + "'></a></li>" ;
-		$('.gallerys').append(output);
-	});
-	});
-	</script>
-	<ul id="Gallery" class="gallery">
-	<div class="gallerys"></div>
-		<li><a href="http://news.dicoba.net/media/76957-steve_jobs_68278.jpg"><img src="http://news.dicoba.net/media/76957-steve_jobs_68278.jpg" width='100' class='img-rounded' height='100' alt="Image 001" /></a></li>
-		<li><a href="images/full/002.jpg"><img src="images/thumb/002.jpg" alt="Image 002" /></a></li>
-	</ul>
+	</div>
+</div>
 
-</div>	
-<br />
-<br />
+<script type="text/javascript">
+$.getJSON( "http://news.dicoba.net/api/news/category/id/2", function( data ) {
+$(data).each(function() {
+    var output = "<hr /><li class='clearfix'><a href='news.html?id=" + this.id_news + "'><div class='user-image pull-left'><img src='http://news.dicoba.net/media/"
+	+ this.media + "' class='user-image'></div><div><h4 class='top'>" + this.title + "</div></a></li>";
+    $('#summary').append(output);
+});
+
+var title = "<h3 class='title-a'>"+ data[0].cat_news + "</h3>";
+	$('#title').append(title);
+
+});
+</script>
+<script>
+  $(function() {
+        var limit = 20;
+        var chars = $("#myDiv").text(); 
+        if (chars.length > limit) {
+            var visiblePart = $("<span> "+ chars.substr(0, limit-1) +"</span>");
+            var dots = $("<span class='dots'>... </span>");
+           
+            $("#myDiv").empty()
+                .append(visiblePart)
+                .append(dots)
+        }
+    });
+</script>
+</div>
+</div>
+
 <div class="footer">
 <center class="heightfull">
  <div class="heightfull">
- <div class="btn-group heightfull" role="group" aria-label="...">
+ <div class="btn-group heightfull" role="group">
   <div class="btn-group heightfull" role="group" ><a type="button" href="index.html"><div class="btn-home"></div></a></div>
   <div class="btn-group heightfull" role="group" ><a type="button" href="gallery.html"><div class="btn-pict"></div></a></div>
   <div class="btn-group heightfull" role="group" ><a type="button" href="#"><div class="btn-news"></div></a></div>
@@ -86,9 +95,9 @@
 </div>
 </div>
 </div>
-
 </body>
     <script src="js/jquery.navgoco.js"></script>
     <script src="js/main.js"></script>
 	 <script src="js/slide.js"></script>
+	  
 </html>

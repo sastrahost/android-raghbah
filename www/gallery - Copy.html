@@ -60,7 +60,7 @@
 		<script type="text/javascript">
 	$.getJSON( "http://news.dicoba.net/api/gallery/images", function( data ) {
 	$(data).each(function() {
-		var output = "<li><a rel='external' href='http://news.dicoba.net/media/" + this.media 
+		var output = "<li><a href='http://news.dicoba.net/media/" + this.media 
 		+ "'><img width='100' class='img-rounded' height='100' src='http://news.dicoba.net/media/" + this.media + "' alt='" + this.title + "'></a></li>" ;
 		$('.gallerys').append(output);
 	});
@@ -68,8 +68,8 @@
 	</script>
 	<ul id="Gallery" class="gallery">
 	<div class="gallerys"></div>
-		<li><a href="http://news.dicoba.net/media/76957-steve_jobs_68278.jpg"><img src="http://news.dicoba.net/media/76957-steve_jobs_68278.jpg" width='100' class='img-rounded' height='100' alt="Image 001" /></a></li>
-		<li><a href="images/full/002.jpg"><img src="images/thumb/002.jpg" alt="Image 002" /></a></li>
+		<li><a href="http://news.dicoba.net/media/76957-steve_jobs_68278.jpg"><img src="http://news.dicoba.net/media/76957-steve_jobs_68278.jpg" alt="Image 001" /></a></li>
+		<li><a href="images/full/002.jpg"><img src="images/thumb/002.jpg" alt="Image 002" /></a></li>		
 	</ul>
 
 </div>	
