@@ -9,73 +9,59 @@
 	<script src="js/jquery.min.js"></script>
 	<link href="css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" />
 	<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-	<link href="photoswipe.css" type="text/css" rel="stylesheet" />
+	<!-- CSS Gallery -->
+	<link rel="stylesheet" href="css/blueimp-gallery.css">
+	<link rel="stylesheet" href="css/blueimp-gallery-indicator.css">
+	<link rel="stylesheet" href="css/blueimp-gallery-video.css">
+	<!-- END CSS Gallery -->
 	<link rel="stylesheet" href="css/main.css">
-	<script type="text/javascript" src="lib/klass.min.js"></script>
-	<script type="text/javascript" src="code.photoswipe-3.0.5.min.js"></script>
-
-	
-	<script type="text/javascript">
-		(function(window, PhotoSwipe){
-		
-			document.addEventListener('DOMContentLoaded', function(){
-			
-				var
-					options = {},
-					instance = PhotoSwipe.attach( window.document.querySelectorAll('#Gallery a'), options );
-			
-			}, false);
-			
-			
-		}(window, window.Code.PhotoSwipe));
-	</script>
-	
 </head>
 <body class="background">
-<nav class="menu-list">
-        <ul class="list-unstyled main-menu">
-          
-          <!--Include your navigation here-->
-          <li class="text-right"><a href="#" id="nav-close">X</a></li>
-          <li><a href="#">أخبار رغبة<span class="icon"></span></a></li>
-          <li><a href="#">أخبار الاهالي<span class="icon"></span></a></li>
-          <li><a href="#">الصور<span class="icon"></span></a></li>
-          <li><a href="#">الإعلانات التجارية<span class="icon"></span></a></li>
-          </li>
-        </ul>
-      </nav>
-<nav class="navbar navbar-default Header">
+<nav class="navbar navbar-default Header" role="navigation" id="slide-nav">
 		<div class="Header">
+		<div class="navbar navbar-fixed-top">
+			<h4 class="text-center logo-title">www.raghbah.com</h4>
+        <div class="navbar-header pull-right">
+
+        </div>
+    </div>
 		</div>
 		<div id="logo">
-<a href="index.html"><img src="images/logo.png" class="logos" alt="Home" /></a>
+<a href="index.html"><img src="images/logo.png" class="logos" alt="Code Computerlove" /></a>
 </div>
 </nav>
 
 <div id="MainContent">
-
+	<center>
 	<div class="page-content">
-		<h3>Raghbah</h3>
+		<h3>Gallery</h3>
 	</div>
-		<script type="text/javascript">
-	$.getJSON( "http://news.dicoba.net/api/gallery/images", function( data ) {
-	$(data).each(function() {
-		var output = "<li><a rel='external' href='http://news.dicoba.net/media/" + this.media 
-		+ "'><img width='100' class='img-rounded' height='100' src='http://news.dicoba.net/media/" + this.media + "' alt='" + this.title + "'></a></li>" ;
-		$('.gallerys').append(output);
-	});
-	});
-	</script>
-	<ul id="Gallery" class="gallery">
-	<div class="gallerys"></div>
-		<li><a href="http://news.dicoba.net/media/76957-steve_jobs_68278.jpg"><img src="http://news.dicoba.net/media/76957-steve_jobs_68278.jpg" width='100' class='img-rounded' height='100' alt="Image 001" /></a></li>
-		<li><a href="images/full/002.jpg"><img src="images/thumb/002.jpg" alt="Image 002" /></a></li>
-	</ul>
-
+	<div id="links" class="links"></div>
+	<div id="blueimp-gallery" class="blueimp-gallery">
+		<div class="slides"></div>
+			<h3 class="title"></h3>
+			<a class="prev">‹</a>
+			<a class="next">›</a>
+			<a class="close">×</a>
+			<a class="play-pause"></a>
+		<ol class="indicator"></ol>
+	</div>
+	</center>
 </div>	
 <br />
 <br />
-<div class="footer">
+<footer class="footer">
+	<nav class="menu-list">
+        <ul class="list-unstyled main-menu">
+          
+          <!--Include your navigation here-->
+          <li class="text-right"><a href="#" id="nav-close">X</a></li>
+          <li><a href="category-1.html">أخبار رغبة<span></span></a></li>
+          <li><a href="category-2.html">أخبار الاهالي<span></span></a></li>
+          <li><a href="category-3.html">الصور<span></span></a></li>
+          <li><a href="gallery.html">الإعلانات التجارية<span></span></a></li>
+        </ul>
+	</nav>
 <center class="heightfull">
  <div class="heightfull">
  <div class="btn-group heightfull" role="group" aria-label="...">
@@ -85,8 +71,24 @@
   <div class="btn-group heightfull" role="group"><a href="" type="button" id="nav-expander" ><div class="btn-menu"></div></a></div>
 </div>
 </div>
-</div>
-
+</footer>
+<script src="js/blueimp-helper.js"></script>
+<script src="js/blueimp-gallery.js"></script>
+<script src="js/blueimp-gallery-fullscreen.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+/*jslint evil: true */
+/*global window, document*/
+// Including jQuery via the protocol relative url above works for both http and https.
+// Explicitly including jQuery via https allows running the Gallery demo as local file:
+if (!window.jQuery) {
+    document.write(
+        '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"><\/script>'
+    );
+}
+</script>
+<script src="js/jquery.blueimp-gallery.js"></script>
+<script src="js/demo.js"></script>
 </body>
     <script src="js/jquery.navgoco.js"></script>
     <script src="js/main.js"></script>

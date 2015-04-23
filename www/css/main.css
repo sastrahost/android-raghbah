@@ -90,7 +90,7 @@ nav.menu-list {
   font-size: 15px;
   top: 0;
   width: 17em;
-  z-index: 2000;
+  z-index: 1;
   
   transition: right 0.3s ease-in-out 0s;
   -webkit-transition: right 0.3s ease-in-out 0s;
@@ -99,15 +99,22 @@ nav.menu-list {
 
 }
 .nav-expanded nav.menu-list {
-  right: 0;
+  right: 0 !important;
+}
+.nav-expanded .heightfull {
+  right: 10em  !important;
 }
 
-body.nav-expanded {
-  margin-left: 0em;
-  transition: right 0.4s ease-in-out 0s;
+.left.nav-expanded {
   -webkit-transition: right 0.4s ease-in-out 0s;
   -moz-transition: right 0.4s ease-in-out 0s;
   -o-transition: right 0.4s ease-in-out 0s;
+    display: block;
+    overflow: auto;
+    position: fixed;
+    right: 20em;
+    transition: right 0.3s ease-in-out 0s;
+	z-index:9999;
 }
 
 #nav-close {
@@ -118,7 +125,8 @@ body.nav-expanded {
 }
 
 .main-menu {
-  padding-top: 12px;
+  padding-top: 45px;
+
 }
 
 .main-menu li {
