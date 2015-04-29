@@ -6,67 +6,17 @@
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<link href="styles.css" type="text/css" rel="stylesheet" />
-	<!-- push notif -->
-	<script type="text/javascript" src="js/PushNotification.js"></script>
-	<script type="text/javascript" src="js/pubnub-3.7.4.min.js"></script>
 	
 	<script src="js/jquery.min.js"></script>
 	<link href="css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" />
 	<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/main.css">
 </head>
-<body onload="init();"  class="background">
-<script>
-function init() {
-    document.addEventListener("deviceready", initPushwoosh, true);
- 
-    //rest of the code
-}
-
-document.addEventListener('push-notification', function(event) {
-    var title = event.notification.title;
-    var userData = event.notification.userdata;
- 
-    console.warn('user data: ' + JSON.stringify(userData));
-    alert(title);
-});
-
-function initPushwoosh()
-{
-    var pushNotification = cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
- 
-    //set push notifications handler
-    document.addEventListener('push-notification', function(event) {
-        var title = event.notification.title;
-        var userData = event.notification.userdata;
-                                 
-        if(typeof(userData) != "undefined") {
-            console.warn('user data: ' + JSON.stringify(userData));
-        }
-                                     
-        alert(title);
-    });
- 
-    //initialize Pushwoosh with projectid: "GOOGLE_PROJECT_NUMBER", pw_appid : "PUSHWOOSH_APP_ID". This will trigger all pending push notifications on start.
-    pushNotification.onDeviceReady({ projectid: "GOOGLE_PROJECT_NUMBER", pw_appid : "PUSHWOOSH_APP_ID" });
- 
-    //register for pushes
-    pushNotification.registerDevice(
-        function(status) {
-            var pushToken = status;
-            console.warn('push token: ' + pushToken);
-        },
-        function(status) {
-            console.warn(JSON.stringify(['failed to register ', status]));
-        }
-    );
-}
-</script>
+<body class="background">
 <nav class="navbar navbar-default Header" role="navigation" id="slide-nav">
 		<div class="Header">
-		<div class="navbar navbar-fixed-top">
-			<h4 class="text-center logo-title">www.raghbah.com</h4>
-        
+		<div class="navbar navbar-fixed-top" style="margin-top: 9px !important;">
+			<h4 class="text-center logo-title">www.raghbah.com<div id="banner" class="text-center" style="margin-top:-38px;"></div></h4>
 		</div>
 		</div>
 		<div id="logo">
@@ -80,8 +30,8 @@ function initPushwoosh()
 </center>
 <nav style="margin-top:-15px;">
 <ul class="list-inline">
-    <li><ul class="pager"><li><a href="category-2.html"><img src="img/cat-a.png" width="100px;" alt="Generic placeholder thumbnail"></li><li><p>أخبار الاهالي</p></a></li></ul></li>
-    <li><ul class="pager"><li><a href="category-1.html"><img src="img/cat-b.png" width="100px;" alt="Generic placeholder thumbnail"></li><li><p>أخبار رغبة</p></a></li></ul></li>
+    <li><ul class="pager"><li><a href="category-1.html"><img src="img/cat-a.png" width="100px;" alt="Generic placeholder thumbnail"></li><li><p>أخبار الاهالي</p></a></li></ul></li>
+    <li><ul class="pager"><li><a href="category-2.html"><img src="img/cat-b.png" width="100px;" alt="Generic placeholder thumbnail"></li><li><p>أخبار رغبة</p></a></li></ul></li>
 </ul>
 <ul class="list-inline">
     <li><ul class="pager"><li><a href="category-3.html"><img src="img/cat-c.png" width="100px;" alt="Generic placeholder thumbnail"></li><li><p>الإعلانات التجارية</p></a></li></ul></li>
@@ -100,10 +50,10 @@ function initPushwoosh()
         <ul class="list-unstyled main-menu">
           <!--Include your navigation here-->
           <li class="text-right"><a href="#" id="nav-close">X</a></li>
-          <li><a href="category-1.html">أخبار رغبة<span></span></a></li>
-          <li><a href="category-2.html">أخبار الاهالي<span></span></a></li>
-          <li><a href="category-3.html">الصور<span></span></a></li>
-          <li><a href="gallery.html">الإعلانات التجارية<span></span></a></li>
+          <li><a href="category-2.html">أخبار رغبة<span></span></a></li>
+          <li><a href="category-1.html">أخبار الاهالي<span></span></a></li>
+          <li><a href="category-3.html">الإعلانات التجارية<span></span></a></li>
+          <li><a href="gallery.html">الصور<span></span></a></li>
         </ul>
       </nav>
 <center class="heightfull">
@@ -119,6 +69,6 @@ function initPushwoosh()
 </footer>
 </body>
     <script src="js/jquery.navgoco.js"></script>
-	 <script src="js/slide.js"></script>
-	  
+	<script src="js/slide.js"></script>
+	<script src="js/banner.js"></script> 
 </html>

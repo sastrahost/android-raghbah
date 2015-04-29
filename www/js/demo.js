@@ -28,7 +28,7 @@ $(function () {
         $.each(result, function (index ) {
             baseUrl = 'http://news.dicoba.net/media/' + this.media;
             $('<a/>')
-                .append($('<img style="width:130px;height:130px;">').prop('src', baseUrl ))
+                .append($('<img style="width:130px;height:130px;margin:5px 5px;">').prop('src', baseUrl ))
                 .prop('href', baseUrl )
                 .prop('title', this.title )
                 .attr('data-gallery', '')
