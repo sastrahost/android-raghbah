@@ -1,78 +1,131 @@
-var PushNotification = function() {
-};
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
+function registerPushwooshAndroid() {
 
-// Call this to register for push notifications. Content of [options] depends on whether we are working with APNS (iOS) or GCM (Android)
-PushNotification.prototype.register = function(successCallback, errorCallback, options) {
-    if (errorCallback == null) { errorCallback = function() {}}
+ 	var pushNotification = cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
 
-    if (typeof errorCallback != "function")  {
-        console.log("PushNotification.register failure: failure parameter not a function");
-        return
-    }
+	//set push notifications handler
+	document.addEventListener('push-notification',
+		function(event)
+		{
+            var title = event.notification.title;
+            var userData = event.notification.userdata;
 
-    if (typeof successCallback != "function") {
-        console.log("PushNotification.register failure: success callback parameter must be a function");
-        return
-    }
+            //dump custom data to the console if it exists
+            if(typeof(userData) != "undefined") {
+				console.warn('user data: ' + JSON.stringify(userData));
+			}
 
-    cordova.exec(successCallback, errorCallback, "PushPlugin", "register", [options]);
-};
+			//and show alert
+			alert(title);
 
-// Call this to unregister for push notifications
-PushNotification.prototype.unregister = function(successCallback, errorCallback, options) {
-    if (errorCallback == null) { errorCallback = function() {}}
+			//stopping geopushes
+			//pushNotification.stopGeoPushes();
+		}
+	);
 
-    if (typeof errorCallback != "function")  {
-        console.log("PushNotification.unregister failure: failure parameter not a function");
-        return
-    }
+	//initialize Pushwoosh with projectid: "GOOGLE_PROJECT_ID", appid : "PUSHWOOSH_APP_ID". This will trigger all pending push notifications on start.
+	pushNotification.onDeviceReady({ projectid: "60756016005", appid : "4FC89B6D14A655.46488481" });
 
-    if (typeof successCallback != "function") {
-        console.log("PushNotification.unregister failure: success callback parameter must be a function");
-        return
-    }
-
-     cordova.exec(successCallback, errorCallback, "PushPlugin", "unregister", [options]);
-};
-
-    // Call this if you want to show toast notification on WP8
-    PushNotification.prototype.showToastNotification = function (successCallback, errorCallback, options) {
-        if (errorCallback == null) { errorCallback = function () { } }
-
-        if (typeof errorCallback != "function") {
-            console.log("PushNotification.register failure: failure parameter not a function");
-            return
-        }
-
-        cordova.exec(successCallback, errorCallback, "PushPlugin", "showToastNotification", [options]);
-    }
-// Call this to set the application icon badge
-PushNotification.prototype.setApplicationIconBadgeNumber = function(successCallback, errorCallback, badge) {
-    if (errorCallback == null) { errorCallback = function() {}}
-
-    if (typeof errorCallback != "function")  {
-        console.log("PushNotification.setApplicationIconBadgeNumber failure: failure parameter not a function");
-        return
-    }
-
-    if (typeof successCallback != "function") {
-        console.log("PushNotification.setApplicationIconBadgeNumber failure: success callback parameter must be a function");
-        return
-    }
-
-    cordova.exec(successCallback, errorCallback, "PushPlugin", "setApplicationIconBadgeNumber", [{badge: badge}]);
-};
-
-//-------------------------------------------------------------------
-
-if(!window.plugins) {
-    window.plugins = {};
-}
-if (!window.plugins.pushNotification) {
-    window.plugins.pushNotification = new PushNotification();
+	//register for push notifications
+	pushNotification.registerDevice(
+		function(token)
+		{
+			alert(token);
+			//callback when pushwoosh is ready
+			onPushwooshAndroidInitialized(token);
+		},
+		function(status)
+		{
+			alert("failed to register: " +  status);
+		    console.warn(JSON.stringify(['failed to register ', status]));
+		}
+	);
 }
 
-if (typeof module != 'undefined' && module.exports) {
-  module.exports = PushNotification;
+function onPushwooshAndroidInitialized(pushToken)
+{
+	//output the token to the console
+	console.warn('push token: ' + pushToken);
+
+	var pushNotification = cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
+	
+	//if you need push token at a later time you can always get it from Pushwoosh plugin
+	pushNotification.getPushToken(
+		function(token)
+		{
+			console.warn('push token: ' + token);
+		}
+	);
+
+	//and HWID if you want to communicate with Pushwoosh API
+	pushNotification.getPushwooshHWID(
+		function(token) {
+			console.warn('Pushwoosh HWID: ' + token);
+		}
+	);
+	
+	pushNotification.getTags(
+		function(tags)
+		{
+			console.warn('tags for the device: ' + JSON.stringify(tags));
+		},
+		function(error)
+		{
+			console.warn('get tags error: ' + JSON.stringify(error));
+		}
+	);
+	 
+
+	//set multi notificaiton mode
+	//pushNotification.setMultiNotificationMode();
+	//pushNotification.setEnableLED(true);
+	
+	//set single notification mode
+	//pushNotification.setSingleNotificationMode();
+	
+	//disable sound and vibration
+	//pushNotification.setSoundType(1);
+	//pushNotification.setVibrateType(1);
+	
+	pushNotification.setLightScreenOnNotification(false);
+	
+	//goal with count
+	//pushNotification.sendGoalAchieved({goal:'purchase', count:3});
+	
+	//goal with no count
+	//pushNotification.sendGoalAchieved({goal:'registration'});
+
+	//setting list tags
+	//pushNotification.setTags({"MyTag":["hello", "world"]});
+	
+	//settings tags
+	pushNotification.setTags({deviceName:"hello", deviceId:10},
+		function(status) {
+			console.warn('setTags success');
+		},
+		function(status) {
+			console.warn('setTags failed');
+		}
+	);
+
+	//Pushwoosh Android specific method that cares for the battery
+	//pushNotification.startGeoPushes();
 }
