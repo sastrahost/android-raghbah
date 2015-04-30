@@ -12,7 +12,7 @@
 	<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/main.css">
 </head>
-<body onload="init();" class="background">
+<body class="background">
 <nav class="navbar navbar-default Header" role="navigation" id="slide-nav">
 		<div class="Header">
 		<div class="navbar navbar-fixed-top" style="margin-top: 9px !important;">
@@ -67,27 +67,8 @@
 </div>
 </center>
 </footer>
-<script type="text/javascript"  src="js/jquery.navgoco.js"></script>
+</body>
+    <script src="js/jquery.navgoco.js"></script>
 	<script src="js/slide.js"></script>
 	<script src="js/banner.js"></script> 
-	<script type="text/javascript" src="phonegap.js"></script>
-	<script type="text/javascript" src="js/PushNotification.js"></script>
-	<script type="text/javascript" src="resources/js/PushwooshAndroid.js"></script>
-	<script type="text/javascript" src="resources/js/PushwooshiOS.js"></script>
-	<script>
-function init() {
-    document.addEventListener("deviceready", initPushwoosh, true);
- 
-    //rest of the code
-}
-
-document.addEventListener('push-notification', function(event) {
-    var title = event.notification.title;
-    var userData = event.notification.userdata;
- 
-    console.warn('user data: ' + JSON.stringify(userData));
-    alert(title);
-});
-</script>
-</body>
 </html>
