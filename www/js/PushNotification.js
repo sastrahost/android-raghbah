@@ -1,131 +1,176 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+//
+//  PushNotification.js
+//
+// Based on the Push Notifications Cordova Plugin by Olivier Louvignes on 06/05/12.
+// Modified by Max Konev on 18/05/12.
+//
+// Pushwoosh Push Notifications Plugin for Cordova iOS
+// www.pushwoosh.com
+//
+// MIT Licensed
 
-function registerPushwooshAndroid() {
+var exec = require('cordova/exec');
 
- 	var pushNotification = cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
+function PushNotification() {}
 
-	//set push notifications handler
-	document.addEventListener('push-notification',
-		function(event)
-		{
-            var title = event.notification.title;
-            var userData = event.notification.userdata;
+// Call this to register for push notifications and retreive a push Token
+PushNotification.prototype.registerDevice = function(success, fail) {
+	exec(success, fail, "PushNotification", "registerDevice", []);
+};
 
-            //dump custom data to the console if it exists
-            if(typeof(userData) != "undefined") {
-				console.warn('user data: ' + JSON.stringify(userData));
-			}
+// Call this to set tags for the device
+PushNotification.prototype.setTags = function(config, success, fail) {
+	exec(success, fail, "PushNotification", "setTags", config ? [config] : []);
+};
 
-			//and show alert
-			alert(title);
+// Call this to get push token if it is available
+PushNotification.prototype.getPushToken = function(success) {
+	exec(success, null, "PushNotification", "getPushToken", []);
+};
 
-			//stopping geopushes
-			//pushNotification.stopGeoPushes();
-		}
-	);
+// Call this to get Pushwoosh HWID used for communications with Pushwoosh API
+PushNotification.prototype.getPushwooshHWID = function(success) {
+	exec(success, null, "PushNotification", "getPushwooshHWID", []);
+};
 
-	//initialize Pushwoosh with projectid: "GOOGLE_PROJECT_ID", appid : "PUSHWOOSH_APP_ID". This will trigger all pending push notifications on start.
-	pushNotification.onDeviceReady({ projectid: "60756016005", appid : "4FC89B6D14A655.46488481" });
+// Call this first thing with your Pushwoosh App ID (see example)
+PushNotification.prototype.onDeviceReady = function(config) {
+	exec(null, null, "PushNotification", "onDeviceReady", config ? [config] : []);
+};
 
-	//register for push notifications
-	pushNotification.registerDevice(
-		function(token)
-		{
-			alert(token);
-			//callback when pushwoosh is ready
-			onPushwooshAndroidInitialized(token);
-		},
-		function(status)
-		{
-			alert("failed to register: " +  status);
-		    console.warn(JSON.stringify(['failed to register ', status]));
-		}
-	);
-}
+// Call this to send geo location for the device
+PushNotification.prototype.sendLocation = function(config, success, fail) {
+	exec(success, fail, "PushNotification", "sendLocation", config ? [config] : []);
+};
 
-function onPushwooshAndroidInitialized(pushToken)
-{
-	//output the token to the console
-	console.warn('push token: ' + pushToken);
+// Call this to get tags for the device
+PushNotification.prototype.getTags = function(success, fail) {
+	exec(success, fail, "PushNotification", "getTags", []);
+};
 
-	var pushNotification = cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
-	
-	//if you need push token at a later time you can always get it from Pushwoosh plugin
-	pushNotification.getPushToken(
-		function(token)
-		{
-			console.warn('push token: ' + token);
-		}
-	);
+PushNotification.prototype.unregisterDevice = function(success, fail) {
+	exec(success, fail, "PushNotification", "unregisterDevice", []);
+};
 
-	//and HWID if you want to communicate with Pushwoosh API
-	pushNotification.getPushwooshHWID(
-		function(token) {
-			console.warn('Pushwoosh HWID: ' + token);
-		}
-	);
-	
-	pushNotification.getTags(
-		function(tags)
-		{
-			console.warn('tags for the device: ' + JSON.stringify(tags));
-		},
-		function(error)
-		{
-			console.warn('get tags error: ' + JSON.stringify(error));
-		}
-	);
-	 
+// Enable Geozones for your Pushwoosh app to be able to use these
+PushNotification.prototype.startLocationTracking = function(success, fail) {
+  exec(success, fail, "PushNotification", "startLocationTracking", []);
+};
 
-	//set multi notificaiton mode
-	//pushNotification.setMultiNotificationMode();
-	//pushNotification.setEnableLED(true);
-	
-	//set single notification mode
-	//pushNotification.setSingleNotificationMode();
-	
-	//disable sound and vibration
-	//pushNotification.setSoundType(1);
-	//pushNotification.setVibrateType(1);
-	
-	pushNotification.setLightScreenOnNotification(false);
-	
-	//goal with count
-	//pushNotification.sendGoalAchieved({goal:'purchase', count:3});
-	
-	//goal with no count
-	//pushNotification.sendGoalAchieved({goal:'registration'});
+PushNotification.prototype.stopLocationTracking = function(success, fail) {
+  exec(success, fail, "PushNotification", "stopLocationTracking", []);
+};
 
-	//setting list tags
-	//pushNotification.setTags({"MyTag":["hello", "world"]});
-	
-	//settings tags
-	pushNotification.setTags({deviceName:"hello", deviceId:10},
-		function(status) {
-			console.warn('setTags success');
-		},
-		function(status) {
-			console.warn('setTags failed');
-		}
-	);
+//Android Only----
+//config params: {msg:"message", seconds:30, userData:"optional"}
+PushNotification.prototype.createLocalNotification = function(config, success, fail) {
+	exec(success, fail, "PushNotification", "createLocalNotification", config ? [config] : []);
+};
 
-	//Pushwoosh Android specific method that cares for the battery
-	//pushNotification.startGeoPushes();
-}
+PushNotification.prototype.clearLocalNotification = function() {
+	exec(null, null, "PushNotification", "clearLocalNotification", []);
+};
+
+PushNotification.prototype.clearNotificationCenter = function() {
+	exec(null, null, "PushNotification", "clearNotificationCenter", []);
+};
+
+//advanced background task to track device position and not drain the battery
+//deprecated, use startLocationTracking and stopLocationTracking
+PushNotification.prototype.startGeoPushes = function(success, fail) {
+	exec(success, fail, "PushNotification", "startGeoPushes", []);
+};
+
+PushNotification.prototype.stopGeoPushes = function(success, fail) {
+	exec(success, fail, "PushNotification", "stopGeoPushes", []);
+};
+
+//advanced background task to track device position and not drain the battery
+PushNotification.prototype.startBeaconPushes = function(success, fail) {
+	exec(success, fail, "PushNotification", "startBeaconPushes", []);
+};
+
+PushNotification.prototype.stopBeaconPushes = function(success, fail) {
+	exec(success, fail, "PushNotification", "stopBeaconPushes", []);
+};
+
+//Android only, let the plugin know that the app went to background mode (or vise versa)
+PushNotification.prototype.setBeaconBackgroundMode = function(on, success, fail) {
+	exec(success, fail, "PushNotification", "setBeaconBackgroundMode", [on]);
+};
+
+//sets multi notification mode on
+PushNotification.prototype.setMultiNotificationMode = function(success, fail) {
+	exec(success, fail, "PushNotification", "setMultiNotificationMode", []);
+};
+
+//sets single notification mode
+PushNotification.prototype.setSingleNotificationMode = function(success, fail) {
+	exec(success, fail, "PushNotification", "setSingleNotificationMode", []);
+};
+
+//type: 0 default, 1 no sound, 2 always
+PushNotification.prototype.setSoundType = function(type, success, fail) {
+	exec(success, fail, "PushNotification", "setSoundType", [type]);
+};
+
+//type: 0 default, 1 no vibration, 2 always
+PushNotification.prototype.setVibrateType = function(type, success, fail) {
+	exec(success, fail, "PushNotification", "setVibrateType", [type]);
+};
+
+PushNotification.prototype.setLightScreenOnNotification = function(on, success, fail) {
+	exec(success, fail, "PushNotification", "setLightScreenOnNotification", [on]);
+};
+
+//set to enable led blinking when notification arrives and display is off
+PushNotification.prototype.setEnableLED = function(on, success, fail) {
+	exec(success, fail, "PushNotification", "setEnableLED", [on]);
+};
+//set led color
+PushNotification.prototype.setColorLED = function(color, success, fail) {
+	exec(success, fail, "PushNotification", "setColorLED", [color]);
+};
+//{goal:'name', count:3} (count is optional)
+PushNotification.prototype.sendGoalAchieved = function(config, success, fail) {
+	exec(success, fail, "PushNotification", "sendGoalAchieved", config ? [config] : []);
+};
+
+//Android Only. Gets push history, returns array
+PushNotification.prototype.getPushHistory = function(success) {
+	exec(success, null, "PushNotification", "getPushHistory", []);
+};
+
+//Android Only. Clears push history
+PushNotification.prototype.clearPushHistory = function() {
+	exec(null, null, "PushNotification", "clearPushHistory", []);
+};
+
+//Android End----
+
+//iOS only----
+// Call this to get a detailed status of remoteNotifications
+PushNotification.prototype.getRemoteNotificationStatus = function(callback) {
+	exec(callback, callback, "PushNotification", "getRemoteNotificationStatus", []);
+};
+
+// Call this to set the application icon badge
+PushNotification.prototype.setApplicationIconBadgeNumber = function(badgeNumber, callback) {
+	exec(callback, callback, "PushNotification", "setApplicationIconBadgeNumber", [{badge: badgeNumber}]);
+};
+
+// Call this to clear all notifications from the notification center
+PushNotification.prototype.cancelAllLocalNotifications = function(callback) {
+	exec(callback, callback, "PushNotification", "cancelAllLocalNotifications", []);
+};
+//iOS End----
+
+// Event spawned when a notification is received while the application is active
+PushNotification.prototype.notificationCallback = function(notification) {
+	var ev = document.createEvent('HTMLEvents');
+	ev.notification = notification;
+	ev.initEvent('push-notification', true, true, arguments);
+	document.dispatchEvent(ev);
+};
+
+module.exports = new PushNotification();
