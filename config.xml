@@ -1,6 +1,6 @@
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.alanel.raghbah" version="1.0.0">
-  <name>Raghbah</name>
-  <description>Raghbah News and Gallery Apps for Android</description>
+  <name>Raghabah</name>
+  <description>Raghabah News and Gallery Apps for Android</description>
   <author href="http://cloudwings.com.sa" email="mail@mjniuz.com">CloudWings Team</author>
   <content src="index.html"/>
   <preference name="permissions" value="none"/>

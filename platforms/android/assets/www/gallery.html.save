@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Raghbah</title>
+	<meta name="author" content="Ste Brennan - Code Computerlove - http://www.codecomputerlove.com/" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+	<script src="js/jquery.min.js"></script>
+	<link href="css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" />
+	<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+	<link href="photoswipe.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/main.css">
+	<script type="text/javascript" src="lib/klass.min.js"></script>
+	<script type="text/javascript" src="code.photoswipe-3.0.5.min.js"></script>
+
+	
+	<script type="text/javascript">
+		(function(window, PhotoSwipe){
+		
+			document.addEventListener('DOMContentLoaded', function(){
+			
+				var
+					options = {},
+					instance = PhotoSwipe.attach( window.document.querySelectorAll('#Gallery a'), options );
+			
+			}, false);
+			
+			
+		}(window, window.Code.PhotoSwipe));
+	</script>
+	
+</head>
+<body class="background">
+
+<nav class="navbar navbar-default Header">
+		<div class="Header">
+		</div>
+		<div id="logo">
+<a href="index.html"><img src="images/logo.png" class="logos" alt="Home" /></a>
+</div>
+</nav>
+
+<div id="MainContent">
+
+	<div class="page-content">
+		<h3>Raghbah</h3>
+	</div>
+		<script type="text/javascript">
+	$.getJSON( "http://news.dicoba.net/api/gallery/images", function( data ) {
+	$(data).each(function() {
+		var output = "<li><a rel='external' href='http://news.dicoba.net/media/" + this.media 
+		+ "'><img width='100' class='img-rounded' height='100' src='http://news.dicoba.net/media/" + this.media + "' alt='" + this.title + "'></a></li>" ;
+		$('.gallerys').append(output);
+	});
+	});
+	</script>
+	<ul id="Gallery" class="gallery">
+	<div class="gallerys"></div>
+	</ul>
+
+</div>	
+<br />
+<br />
+<footer class="footer">
+	<nav class="menu-list">
+        <ul class="list-unstyled main-menu">
+          
+          <!--Include your navigation here-->
+          <li class="text-right"><a href="#" id="nav-close">X</a></li>
+          <li><a href="#">أخبار رغبة<span class="icon"></span></a></li>
+          <li><a href="#">أخبار الاهالي<span class="icon"></span></a></li>
+          <li><a href="#">الصور<span class="icon"></span></a></li>
+          <li><a href="#">الإعلانات التجارية<span class="icon"></span></a></li>
+          </li>
+        </ul>
+	</nav>
+<center class="heightfull">
+ <div class="heightfull">
+ <div class="btn-group heightfull" role="group" aria-label="...">
+  <div class="btn-group heightfull" role="group" ><a type="button" href="index.html"><div class="btn-home"></div></a></div>
+  <div class="btn-group heightfull" role="group" ><a type="button" href="gallery.html"><div class="btn-pict"></div></a></div>
+  <div class="btn-group heightfull" role="group" ><a type="button" href="#"><div class="btn-news"></div></a></div>
+  <div class="btn-group heightfull" role="group"><a href="" type="button" id="nav-expander" ><div class="btn-menu"></div></a></div>
+</div>
+</div>
+</footer>
+
+</body>
+    <script src="js/jquery.navgoco.js"></script>
+    <script src="js/main.js"></script>
+	 <script src="js/slide.js"></script>
+</html>

@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Raghbah</title>
+	<meta name="author" content="Ste Brennan - Code Computerlove - http://www.codecomputerlove.com/" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+	<script src="js/jquery.min.js"></script>
+	<link href="css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" />
+	<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body class="background">
+<nav class="navbar navbar-default Header" role="navigation" id="slide-nav">
+		<div class="Header">
+		<div class="navbar navbar-fixed-top" style="margin-top: 9px !important;">
+			<h4 class="text-center logo-title">www.raghbah.com<div id="banner" class="text-center" style="margin-top:-38px;"></div></h4>
+		</div>
+		</div>
+		<div id="logo">
+<a href="index.html"><img src="images/logo.png" class="logos" alt="Code Computerlove" /></a>
+</div>
+</nav>
+<div class="container">
+<div class="row text-center">
+<center>
+<h3 class="title-a" id="title"></h3>
+</center>
+<div class="col-sm-14 recent-activity-wrapper">
+	<div class="panel panel-default panel-pmj panel-recent-activity">
+		<div class="panel-body clearfix">
+		<ul class="list-activities">
+<div id="summary">
+</div>
+</ul>
+	</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$.getJSON( "http://news.dicoba.net/api/news/category/id/2", function( data ) {
+$(data).each(function() {
+    var output = "<hr /><li class='clearfix'><a href='news.html?id=" + this.id_news + "'><div class='user-image pull-left'><img src='http://news.dicoba.net/media/"
+	+ this.media + "' class='user-image'></div><div><h4 class='top'>" + this.title + "</div></a></li>";
+    $('#summary').append(output);
+});
+
+var title = "<h3 class='title-a'>"+ data[0].cat_news + "</h3>";
+	$('#title').append(title);
+
+});
+</script>
+<script>
+  $(function() {
+        var limit = 20;
+        var chars = $("#myDiv").text(); 
+        if (chars.length > limit) {
+            var visiblePart = $("<span> "+ chars.substr(0, limit-1) +"</span>");
+            var dots = $("<span class='dots'>... </span>");
+           
+            $("#myDiv").empty()
+                .append(visiblePart)
+                .append(dots)
+        }
+    });
+</script>
+</div>
+</div>
+
+<footer class="footer">
+<nav class="menu-list">
+        <ul class="list-unstyled main-menu">
+          <!--Include your navigation here-->
+          <li class="text-right"><a href="#" id="nav-close">X</a></li>
+          <li><a href="category-2.html">أخبار رغبة<span></span></a></li>
+          <li><a href="category-1.html">أخبار الاهالي<span></span></a></li>
+          <li><a href="category-3.html">الإعلانات التجارية<span></span></a></li>
+          <li><a href="gallery.html">الصور<span></span></a></li>
+        </ul>
+      </nav>
+<center class="heightfull">
+ <div class="heightfull">
+ <div class="btn-group heightfull" role="group">
+  <div class="btn-group heightfull" role="group" ><a type="button" href="index.html"><div class="btn-home"></div></a></div>
+  <div class="btn-group heightfull" role="group" ><a type="button" href="gallery.html"><div class="btn-pict"></div></a></div>
+  <div class="btn-group heightfull" role="group" ><a type="button" href="#"><div class="btn-news"></div></a></div>
+  <div class="btn-group heightfull" role="group"><a href="" type="button" id="nav-expander" ><div class="btn-menu"></div></a></div>
+</div>
+</div>
+</footer>
+</body>
+    <script src="js/jquery.navgoco.js"></script>
+    <script src="js/main.js"></script>
+	 <script src="js/slide.js"></script>
+	<script src="js/banner.js"></script>   
+</html>
